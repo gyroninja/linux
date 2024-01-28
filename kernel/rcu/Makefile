@@ -7,6 +7,9 @@ ifeq ($(CONFIG_KCSAN),y)
 KBUILD_CFLAGS += -g -fno-omit-frame-pointer
 endif
 
+# Avoid recursion KMSAN -> tree -> KMSAN -> tree.
+KMSAN_SANITIZE_tree.o := n
+
 obj-y += update.o sync.o
 obj-$(CONFIG_TREE_SRCU) += srcutree.o
 obj-$(CONFIG_TINY_SRCU) += srcutiny.o
